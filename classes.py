@@ -68,18 +68,21 @@ class Fire(object):
         self.loc=loc
         self.particles=[]
         self.win=win
+    
+    def set_loc(self,new_loc):
+        self.loc=new_loc
         
     def spawn_particle(self):
         x_offset=randrange(-15, 15)
         y_offset=randrange(-15, 15)
         loc=(self.loc[0]+x_offset,self.loc[1]+y_offset)
         accel=(randrange(-2, 2),-randrange(1, 4))
-        size=randrange(2, 4)
+        size=randrange(2, 3)
         lifespan=randrange(5, 10)
         return Particle(loc,accel,size,lifespan)
     
     def next_tick(self):
-        for i in range(randrange(0, 20)):
+        for i in range(randrange(0, 30)):
             self.particles.append(self.spawn_particle())
             
         to_delete=[]

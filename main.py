@@ -9,14 +9,19 @@ from graphics import *
 from classes import *
 import time
 
-win= GraphWin("yeet",500,500)
+win= GraphWin("yeet",500,500, autoflush=False)
 
 F=Fire((250,250),win)
 
 while True:
     F.next_tick()
-    time.sleep(1/15)
-
+    last_clicked=win.checkMouse()
+    if last_clicked!=None:
+        
+        F.set_loc((last_clicked.getX(),last_clicked.getY()))
+    update(15)
+    #time.sleep(1/30)
+    
 win.getMouse()
 
 win.close()
