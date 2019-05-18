@@ -7,6 +7,7 @@ Created on Mon Apr 29 22:35:42 2019
 
 from graphics import *
 from random import *
+from math import *
 
 class Particle(object):
     
@@ -20,7 +21,10 @@ class Particle(object):
         self.lifespan=lifespan
         self.rectangle=Rectangle(Point(loc[0]-size,loc[1]-size),Point(loc[0]+size,loc[1]+size))
         self.drawn=False
-        self.rectangle.setFill("red")
+        self.color_now=(255,181,70) #r g b
+        #self.rectangle.setFill("yellow")
+        self.rectangle.setWidth(0)
+        
     def next_tick(self,win):
         """calculates and changes state of the particle to the next tick of its existence.
          returns true if the particle is still alive and false if it is dead"""
@@ -31,13 +35,15 @@ class Particle(object):
         if not self.drawn:
             self.draw(win)
         
-        if (self.lifespan-2)==self.ticks_lived: #for the aesthetic
-            self.rectangle.setFill("yellow")
-            
+        #if (self.lifespan-2)==self.ticks_lived: #for the aesthetic
+        #    self.rectangle.setFill("red")
+        
+        self.rectangle.setFill(color_rgb(self.color_now[0], self.color_now[1]-self.ticks_lived*20, self.color_now[2]))
+        
         if (self.lifespan//2)==self.ticks_lived: #Turn around on half way point.
             self.accel=(-self.accel[0],self.accel[1])
             self.velocity=(0,self.velocity[1])
-            self.rectangle.setFill("orange")
+            #self.rectangle.setFill("orange")
         self.velocity=(self.velocity[0]+self.accel[0],self.velocity[1]+self.accel[1])
         x,y=self.velocity
         self.rectangle.move(x,y)
@@ -71,18 +77,23 @@ class Fire(object):
     
     def set_loc(self,new_loc):
         self.loc=new_loc
-        
+    
+    def get_loc(self):
+        return self.loc
+    
     def spawn_particle(self):
-        x_offset=randrange(-15, 15)
-        y_offset=randrange(-15, 15)
+        random_degree=randrange(0,360)
+        random_radius=randrange(-20, 20)
+        x_offset=random_radius*sin(random_degree)
+        y_offset=random_radius*cos(random_degree)
         loc=(self.loc[0]+x_offset,self.loc[1]+y_offset)
         accel=(randrange(-2, 2),-randrange(1, 4))
-        size=randrange(2, 3)
+        size=randrange(1, 2)
         lifespan=randrange(5, 10)
         return Particle(loc,accel,size,lifespan)
     
     def next_tick(self):
-        for i in range(randrange(0, 30)):
+        for i in range(randrange(200, 400)):
             self.particles.append(self.spawn_particle())
             
         to_delete=[]

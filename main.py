@@ -9,17 +9,27 @@ from graphics import *
 from classes import *
 import time
 
-win= GraphWin("yeet",500,500, autoflush=False)
+win= GraphWin("fire",500,500, autoflush=False)
+win.setBackground("black")
+
+Frame_rate=15
 
 F=Fire((250,250),win)
+
+moving_to=None
 
 while True:
     F.next_tick()
     last_clicked=win.checkMouse()
-    if last_clicked!=None:
+    
+    if moving_to!=None or last_clicked!=None:
+        if last_clicked!=None:
+            moving_to=last_clicked
         
-        F.set_loc((last_clicked.getX(),last_clicked.getY()))
-    update(15)
+        current_pos=F.get_loc()
+        F.set_loc((current_pos[0]-(current_pos[0]-moving_to.getX())/Frame_rate,current_pos[1]-(current_pos[1]-moving_to.getY())/Frame_rate))
+        
+    update(Frame_rate)
     #time.sleep(1/30)
     
 win.getMouse()
