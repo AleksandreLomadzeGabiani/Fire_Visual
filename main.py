@@ -12,7 +12,7 @@ import time
 win= GraphWin("fire",500,500, autoflush=False)
 win.setBackground("black")
 
-Frame_rate=15
+Frame_rate=60
 
 F=Fire((250,250),win)
 
@@ -27,7 +27,7 @@ while True:
             moving_to=last_clicked
         
         current_pos=F.get_loc()
-        F.set_loc((current_pos[0]-(current_pos[0]-moving_to.getX())/Frame_rate,current_pos[1]-(current_pos[1]-moving_to.getY())/Frame_rate))
+        F.set_loc((current_pos[0]-(current_pos[0]-moving_to.getX())/(Frame_rate/5),current_pos[1]-(current_pos[1]-moving_to.getY())/(Frame_rate/5)))
         
     update(Frame_rate)
     #time.sleep(1/30)

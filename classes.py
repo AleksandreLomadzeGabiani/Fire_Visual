@@ -38,7 +38,7 @@ class Particle(object):
         #if (self.lifespan-2)==self.ticks_lived: #for the aesthetic
         #    self.rectangle.setFill("red")
         
-        self.rectangle.setFill(color_rgb(self.color_now[0], self.color_now[1]-self.ticks_lived*20, self.color_now[2]))
+        self.rectangle.setFill(color_rgb(self.color_now[0], max(self.color_now[1]-self.ticks_lived*10,0), self.color_now[2]))
         
         if (self.lifespan//2)==self.ticks_lived: #Turn around on half way point.
             self.accel=(-self.accel[0],self.accel[1])
@@ -87,13 +87,13 @@ class Fire(object):
         x_offset=random_radius*sin(random_degree)
         y_offset=random_radius*cos(random_degree)
         loc=(self.loc[0]+x_offset,self.loc[1]+y_offset)
-        accel=(randrange(-2, 2),-randrange(1, 4))
+        accel=(randrange(-2, 2)/8,-randrange(1, 4)/8)
         size=randrange(1, 2)
-        lifespan=randrange(5, 10)
+        lifespan=randrange(6*2, 12*2)
         return Particle(loc,accel,size,lifespan)
     
     def next_tick(self):
-        for i in range(randrange(200, 400)):
+        for i in range(randrange(20, 80)):
             self.particles.append(self.spawn_particle())
             
         to_delete=[]
