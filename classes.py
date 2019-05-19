@@ -87,13 +87,13 @@ class Fire(object):
         x_offset=random_radius*sin(random_degree)
         y_offset=random_radius*cos(random_degree)
         loc=(self.loc[0]+x_offset,self.loc[1]+y_offset)
-        accel=(randrange(-2, 2)/8,-randrange(1, 4)/8)
+        accel=(randrange(-2, 2)/6,-randrange(1, 4)/6)
         size=randrange(1, 2)
         lifespan=randrange(6*2, 12*2)
         return Particle(loc,accel,size,lifespan)
     
     def next_tick(self):
-        for i in range(randrange(20, 80)):
+        for i in range(randrange(20*2, 80*2)):
             self.particles.append(self.spawn_particle())
             
         to_delete=[]

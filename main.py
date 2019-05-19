@@ -12,7 +12,7 @@ import time
 win= GraphWin("fire",500,500, autoflush=False)
 win.setBackground("black")
 
-Frame_rate=60
+Frame_rate=30
 
 F=Fire((250,250),win)
 
