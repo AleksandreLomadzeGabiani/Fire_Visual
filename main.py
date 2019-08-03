@@ -6,7 +6,7 @@ Created on Mon Apr 29 21:36:18 2019
 """
 
 from graphics import *
-from classes import *
+from classes import Fire
 import time
 
 win= GraphWin("fire",500,500, autoflush=False)
